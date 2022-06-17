@@ -1,0 +1,38 @@
+{
+    "name": "@bleckert/state",
+    "version": "0.1.0",
+    "description": "Simple state machine",
+    "license": "MIT",
+    "source": "index.js",
+    "type": "module",
+    "module": "dist/module.js",
+    "exports": "./dist/module.js",
+    "sideEffects": false,
+    "scripts": {
+        "watch": "parcel watch",
+        "build": "parcel build",
+        "test": "size-limit && ava",
+        "size": "size-limit"
+    },
+    "size-limit": [
+        {
+            "path": "dist/module.js",
+            "limit": "0.5 kB"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tbleckert/events.git"
+    },
+    "author": "Tobias Bleckert (hola@tobiasbleckert.se)",
+    "devDependencies": {
+        "@size-limit/preset-small-lib": "^7.0.8",
+        "ava": "^4.3.0",
+        "parcel": "^2.6.0",
+        "prettier": "^2.6.2",
+        "size-limit": "^7.0.8"
+    },
+    "dependencies": {
+        "@bleckert/events": "^0.1.0"
+    }
+}
