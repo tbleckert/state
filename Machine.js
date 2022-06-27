@@ -32,7 +32,7 @@ export default class Machine extends Store {
         const currentState = this.state;
         this.state = this.states[this.state].on[actionName];
 
-        this.transition(currentState, this.state, input);
+        this.transition(currentState, input);
     }
 
     start(input = null) {

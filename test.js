@@ -47,10 +47,12 @@ test('Can check if action is valid', (t) => {
 test('Can dispatch', (t) => {
     let sendingCalled = false;
     let leftIdleStateCalled = false;
+    let input = null;
     const machine = new Machine(states);
 
-    machine.onState('SENDING', () => {
+    machine.onState('SENDING', (v) => {
         sendingCalled = true;
+        input = v;
     });
 
     machine.offState('IDLE', () => {
@@ -59,11 +61,12 @@ test('Can dispatch', (t) => {
 
     t.is(machine.state, 'IDLE');
 
-    machine.dispatch('send');
+    machine.dispatch('send', 'foo');
 
     t.is(machine.state, 'SENDING');
     t.is(sendingCalled, true);
     t.is(leftIdleStateCalled, true);
+    t.is(input, 'foo');
 });
 
 test('Can use machine storage', (t) => {
