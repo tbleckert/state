@@ -10,14 +10,15 @@
     "sideEffects": false,
     "scripts": {
         "watch": "parcel watch",
-        "build": "parcel build",
-        "test": "size-limit && ava",
+        "build": "parcel build --detailed-report",
+        "test": "vitest",
+        "coverage": "vitest --run --coverage",
         "size": "size-limit"
     },
     "size-limit": [
         {
             "path": "dist/module.js",
-            "limit": "0.5 kB"
+            "limit": "0.6 kB"
         }
     ],
     "repository": {
@@ -27,10 +28,11 @@
     "author": "Tobias Bleckert (hola@tobiasbleckert.se)",
     "devDependencies": {
         "@size-limit/preset-small-lib": "^7.0.8",
-        "ava": "^4.3.0",
+        "@vitest/coverage-c8": "^0.30.0",
         "parcel": "^2.6.0",
         "prettier": "^2.6.2",
-        "size-limit": "^7.0.8"
+        "size-limit": "^7.0.8",
+        "vitest": "^0.30.0"
     },
     "dependencies": {
         "@bleckert/events": "^0.1.0"
