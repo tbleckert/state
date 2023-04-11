@@ -129,8 +129,16 @@ test('Can reset machine storage', () => {
 });
 
 test('Can create multiple machines with same structure', () => {
-    const machine1 = createMachine('machine1', states, 'IDLE');
-    const machine2 = createMachine('machine2', states, 'IDLE');
+    const machine1 = createMachine({
+        id: 'machine1',
+        states,
+        initial: 'IDLE',
+    });
+    const machine2 = createMachine({
+        id: 'machine2',
+        states,
+        initial: 'IDLE',
+    });
 
     expect(machine1.state).toBe('IDLE');
     expect(machine2.state).toBe('IDLE');
@@ -139,4 +147,17 @@ test('Can create multiple machines with same structure', () => {
 
     expect(machine1.state).toBe('SENDING');
     expect(machine2.state).toBe('IDLE');
+});
+
+test('Can use machine actions', () => {
+    let called = false;
+    const machine = new Machine(states, 'IDLE', {}, {
+        SENDING: () => {
+            called = true;
+        },
+    });
+
+    machine.dispatch('send');
+
+    expect(called).toBe(true);
 });

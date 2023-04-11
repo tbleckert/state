@@ -1,12 +1,13 @@
 import Events from '@bleckert/events';
 
 export class Machine extends Events {
-    constructor(states, initial = 'IDLE', data = {}) {
+    constructor(states, initial = 'IDLE', data = {}, actions = {}) {
         super();
 
         this.states = states;
         this.initial = initial;
         this.state = initial;
+        this.actions = actions;
         this._defaultData = { ...data };
         this.set(this._defaultData);
     }
@@ -26,6 +27,10 @@ export class Machine extends Events {
 
         this.emit(this.state, input);
         this.emit('transition', this.state, prevState, input);
+
+        if (this.actions[this.state]) {
+            this.actions[this.state](this, input);
+        }
     }
 
     dispatch(actionName, input = null) {
@@ -68,10 +73,10 @@ export class Machine extends Events {
 
 const store = {};
 
-export function createMachine(id, states, initial, data = {}) {
-    if (!store[id]) {
-        store[id] = new Machine(states, initial, data);
+export function createMachine(config) {
+    if (!store[config.id]) {
+        store[config.id] = new Machine(config.states, config.initial, config.data, config.actions);
     }
 
-    return store[id];
+    return store[config.id];
 }
