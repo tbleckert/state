@@ -2,3 +2,4 @@
 !dist/module.js
 !dist/module.js.map
 !package.json
+!index.d.ts
